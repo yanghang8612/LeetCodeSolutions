@@ -14,13 +14,13 @@ public class CombinationSum {
     private void backtrack(List<List<Integer>> list, List<Integer> temp, int[] candidates, int start, int target) {
         if (target == 0 && !temp.isEmpty()) {
             list.add(new ArrayList<>(temp));
-            return;
-        }
-        for (int i = start; i < candidates.length; i++) {
-            if (target - candidates[i] < 0) break;
-            temp.add(candidates[i]);
-            backtrack(list,  temp, candidates, i,target - candidates[i]);
-            temp.remove(temp.size() - 1);
+        } else {
+            for (int i = start; i < candidates.length; i++) {
+                if (target - candidates[i] < 0) break;
+                temp.add(candidates[i]);
+                backtrack(list, temp, candidates, i, target - candidates[i]);
+                temp.remove(temp.size() - 1);
+            }
         }
     }
 

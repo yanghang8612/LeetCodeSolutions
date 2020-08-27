@@ -10,6 +10,7 @@ public class Subsets {
 
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
+        result.toArray(new List[100]);
         Arrays.sort(nums);
         backtrack(result, new ArrayList<>(), nums, 0);
         return result;

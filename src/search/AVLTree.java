@@ -34,4 +34,8 @@ public class AVLTree<K, V> {
         son.left = node;
         node.parent = son;
     }
+
+    public static void main(String[] args) {
+        AVLTree<String, String> tree = new AVLTree<>();
+    }
 }

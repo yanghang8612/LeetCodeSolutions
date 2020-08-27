@@ -1,21 +1,22 @@
-import java.util.Stack;
-
 public class MaximalSquare {
+
     public int maximalSquare(char[][] matrix) {
         if (matrix == null || matrix.length == 0 || matrix[0].length == 0) return 0;
-        int[] h = new int[matrix[0].length + 1];
-        int maxArea = 0;
+        int[] dp = new int[matrix[0].length + 1];
+        int maxLen = 0;
         for (char[] row : matrix) {
-            Stack<Integer> s = new Stack<>();
-            for (int i = 0; i <= row.length; i++) {
-                if (i < row.length) h[i] = row[i] == '1' ? h[i] + 1 : 0;
-                while (!s.isEmpty() && h[i] < h[s.peek()]) {
-                    int l = Integer.min(h[s.pop()], s.isEmpty() ? i : i - 1 - s.peek());
-                    maxArea = Integer.max(maxArea, l * l);
-                }
-                s.push(i);
+            int pre = 0;
+            for (int i = 1; i <= row.length; i++) {
+                int l = row[i - 1] == '1' ? Math.min(pre, Math.min(dp[i - 1], dp[i])) + 1 : 0;
+                pre = dp[i];
+                dp[i] = l;
+                maxLen = Math.max(maxLen, l);
             }
         }
-        return maxArea;
+        return maxLen * maxLen;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new MaximalSquare().maximalSquare(new char[][]{{'1','0','1','1','1'},{'0','1','0','1','0'},{'1','1','0','1','1'},{'1','1','0','1','1'},{'0','1','1','1','1'}}));
     }
 }
